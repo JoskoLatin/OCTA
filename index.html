@@ -82,18 +82,24 @@
     </div>
   </section>
 
-  <!-- ── Step LEDs + grid ───────────────────────────────────────────────── -->
-  <section class="panel sequencer">
-    <div class="seq-row led-strip-row">
-      <span class="row-label-spacer"></span>
-      <div class="led-strip" id="ledStrip"></div>
-      <span class="row-label-spacer"></span>
-    </div>
-    <div id="grid" class="grid"></div>
-  </section>
+  <!-- ── Performance surfaces: step grid + pads ──────────────────────────
+       Wrapped so landscape can lift them into their own full-height right
+       column. In portrait .perform is display:contents, so this wrapper is
+       invisible to layout and the two panels stack exactly as before. -->
+  <div class="perform">
+    <!-- Step LEDs + grid -->
+    <section class="panel sequencer">
+      <div class="seq-row led-strip-row">
+        <span class="row-label-spacer"></span>
+        <div class="led-strip" id="ledStrip"></div>
+        <span class="row-label-spacer"></span>
+      </div>
+      <div id="grid" class="grid"></div>
+    </section>
 
-  <!-- ── Pads ───────────────────────────────────────────────────────────── -->
-  <section class="panel pads" id="pads"></section>
+    <!-- Pads -->
+    <section class="panel pads" id="pads"></section>
+  </div>
 
   <!-- ── Mixer (toggled by MIX) ─────────────────────────────────────────── -->
   <section class="panel mixer" id="mixer" hidden>
