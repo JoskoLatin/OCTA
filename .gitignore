@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Capacitor: www/ is copied from the source files at build time
+www/
+
+# Build artifacts
+*.apk
+
+# Android / Gradle build outputs
+android/build/
+android/app/build/
+android/capacitor-cordova-android-plugins/build/
+android/.gradle/
+android/local.properties
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+.gradle/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log

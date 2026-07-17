@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- user-scalable=no + maximum-scale=1 kill the 300ms tap delay and double-tap zoom on Android -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#16181c">
+<meta name="description" content="OCTA — 8-voice groovebox">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>OCTA — 8-voice groovebox</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── Header lockup: octagon mark + wordmark + tagline ───────────────── -->
+  <header class="header">
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+      <rect x="0" y="0" width="100" height="100" rx="14" fill="#16181c"/>
+      <!-- outer octagon (r=40, flat-top orientation) -->
+      <polygon points="86.96,65.31 65.31,86.96 34.69,86.96 13.04,65.31 13.04,34.69 34.69,13.04 65.31,13.04 86.96,34.69"
+               fill="#22252b" stroke="#f5f0e6" stroke-width="3" stroke-linejoin="round"/>
+      <!-- inner concentric octagon (r=28) -->
+      <polygon points="75.87,60.71 60.71,75.87 39.29,75.87 24.13,60.71 24.13,39.29 39.29,24.13 60.71,24.13 75.87,39.29"
+               fill="none" stroke="#3a3f47" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- 8 vertex LEDs, clockwise from top-left: 2x red, 2x orange, 2x yellow, 2x cream -->
+      <circle cx="34.69" cy="13.04" r="3.5" fill="#e0453a"/>
+      <circle cx="65.31" cy="13.04" r="3.5" fill="#e0453a"/>
+      <circle cx="86.96" cy="34.69" r="3.5" fill="#f08a24"/>
+      <circle cx="86.96" cy="65.31" r="3.5" fill="#f08a24"/>
+      <circle cx="65.31" cy="86.96" r="3.5" fill="#f2c94c"/>
+      <circle cx="34.69" cy="86.96" r="3.5" fill="#f2c94c"/>
+      <circle cx="13.04" cy="65.31" r="3.5" fill="#f5f0e6"/>
+      <circle cx="13.04" cy="34.69" r="3.5" fill="#f5f0e6"/>
+      <!-- centre LED — pulses in time with the sequencer via CSS -->
+      <circle id="markLed" class="mark-led" cx="50" cy="50" r="5" fill="#ffb84d"/>
+    </svg>
+    <div class="lockup">
+      <div class="wordmark">OCTA</div>
+      <div class="tagline">drum machine</div>
+    </div>
+    <div class="header-tag">MADE IN VODICE</div>
+  </header>
+
+  <!-- ── Transport ──────────────────────────────────────────────────────── -->
+  <section class="panel transport">
+    <div class="btn-row">
+      <button id="btnPlay" class="btn btn-play">PLAY</button>
+      <button id="btnClear" class="btn">CLEAR</button>
+      <button id="btnMix" class="btn">MIX</button>
+      <button id="btnTap" class="btn">TAP</button>
+    </div>
+    <div class="btn-row pattern-row">
+      <span class="row-caption">PATTERN</span>
+      <div class="pattern-btns" id="patternBtns">
+        <button class="btn btn-pat is-on" data-pattern="0">A</button>
+        <button class="btn btn-pat" data-pattern="1">B</button>
+        <button class="btn btn-pat" data-pattern="2">C</button>
+        <button class="btn btn-pat" data-pattern="3">D</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Tempo / swing ──────────────────────────────────────────────────── -->
+  <section class="panel tempo">
+    <div class="readout">
+      <span id="bpmReadout" class="led-display">120</span>
+      <span class="readout-unit">BPM</span>
+    </div>
+    <input id="bpmSlider" class="slider" type="range" min="60" max="200" step="1" value="120" aria-label="Tempo">
+    <div class="swing-row">
+      <span class="row-caption">SWING</span>
+      <input id="swingSlider" class="slider" type="range" min="0" max="60" step="1" value="0" aria-label="Swing">
+      <span id="swingReadout" class="led-display led-small">0%</span>
+    </div>
+  </section>
+
+  <!-- ── Step LEDs + grid ───────────────────────────────────────────────── -->
+  <section class="panel sequencer">
+    <div class="seq-row led-strip-row">
+      <span class="row-label-spacer"></span>
+      <div class="led-strip" id="ledStrip"></div>
+      <span class="row-label-spacer"></span>
+    </div>
+    <div id="grid" class="grid"></div>
+  </section>
+
+  <!-- ── Pads ───────────────────────────────────────────────────────────── -->
+  <section class="panel pads" id="pads"></section>
+
+  <!-- ── Mixer (toggled by MIX) ─────────────────────────────────────────── -->
+  <section class="panel mixer" id="mixer" hidden>
+    <div class="panel-title">MIX</div>
+    <div id="mixerRows"></div>
+  </section>
+
+  <!-- ── Data ───────────────────────────────────────────────────────────── -->
+  <section class="panel data-row">
+    <button id="btnExport" class="btn">EXPORT</button>
+    <button id="btnImport" class="btn">IMPORT</button>
+    <input id="fileInput" type="file" accept="application/json,.json" hidden>
+  </section>
+
+  <footer class="footer">OCTA · MADE IN VODICE</footer>
+</div>
+
+<script src="audio.js"></script>
+<script src="sequencer.js"></script>
+<script src="ui.js"></script>
+<script>
+  // Register the service worker so the app works offline / installs to the home screen.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW failed:', err));
+    });
+  }
+</script>
+</body>
+</html>

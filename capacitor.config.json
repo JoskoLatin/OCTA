@@ -1,0 +1,8 @@
+{
+  "appId": "com.vodice.octa",
+  "appName": "OCTA",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#16181c"
+  }
+}

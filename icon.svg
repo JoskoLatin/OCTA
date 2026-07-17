@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" role="img" aria-label="OCTA">
+  <title>OCTA</title>
+  <!-- Maskable: full-bleed background, mark kept inside the central 70%
+       (~15% safe-area padding) so Android's mask can't crop it. -->
+  <rect x="0" y="0" width="100" height="100" fill="#16181c"/>
+
+  <!-- Outer octagon, r=37.5 -->
+  <polygon points="84.65,64.35 64.35,84.65 35.65,84.65 15.35,64.35 15.35,35.65 35.65,15.35 64.35,15.35 84.65,35.65"
+           fill="#22252b" stroke="#f5f0e6" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Inner concentric octagon, r=26.25 -->
+  <polygon points="74.25,60.05 60.05,74.25 39.95,74.25 25.75,60.05 25.75,39.95 39.95,25.75 60.05,25.75 74.25,39.95"
+           fill="none" stroke="#3a3f47" stroke-width="1.5" stroke-linejoin="round"/>
+
+  <!-- One LED per voice, clockwise from top-left: 2x red, 2x orange, 2x yellow, 2x cream -->
+  <circle cx="35.65" cy="15.35" r="3.3" fill="#e0453a"/>
+  <circle cx="64.35" cy="15.35" r="3.3" fill="#e0453a"/>
+  <circle cx="84.65" cy="35.65" r="3.3" fill="#f08a24"/>
+  <circle cx="84.65" cy="64.35" r="3.3" fill="#f08a24"/>
+  <circle cx="64.35" cy="84.65" r="3.3" fill="#f2c94c"/>
+  <circle cx="35.65" cy="84.65" r="3.3" fill="#f2c94c"/>
+  <circle cx="15.35" cy="64.35" r="3.3" fill="#f5f0e6"/>
+  <circle cx="15.35" cy="35.65" r="3.3" fill="#f5f0e6"/>
+
+  <!-- Centre LED -->
+  <circle cx="50" cy="50" r="4.7" fill="#ffb84d"/>
+</svg>
