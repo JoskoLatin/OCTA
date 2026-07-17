@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "serve -l 8080",
     "sync-www": "node tools/sync-www.mjs",
-    "apk": "npm run sync-www && cap sync android && cd android && gradlew.bat assembleDebug"
+    "apk": "npm run sync-www && cap sync android && node tools/build-apk.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.2",
