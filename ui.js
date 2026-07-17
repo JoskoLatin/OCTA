@@ -238,9 +238,12 @@ function paintGrid() {
 
 function buildPads() {
   el.pads.innerHTML = '';
-  for (const voice of VOICES) {
+  VOICES.forEach((voice, i) => {
     const pad = document.createElement('button');
     pad.className = 'pad';
+    // Two voices per 808 colour bank (red / orange / yellow / cream), so the
+    // pads read in the same quad palette as the step grid.
+    pad.dataset.bank = String(Math.floor(i / 2));
     pad.innerHTML = `<span>${voice.id}</span><span class="pad-sub">${voice.name}</span>`;
     // pointerdown, not click — lowest achievable latency for finger drumming.
     pad.addEventListener('pointerdown', e => {
@@ -250,7 +253,7 @@ function buildPads() {
       recordHit(voice.id);
     });
     el.pads.appendChild(pad);
-  }
+  });
 }
 
 /* ── build: mixer ───────────────────────────────────────────────────── */

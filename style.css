@@ -384,6 +384,20 @@ body.is-playing .btn-rec.is-on {
   box-shadow: 0 0 14px rgba(255, 184, 77, 0.35), inset 0 0 12px rgba(255, 184, 77, 0.18);
 }
 
+/* Voice-tinted pads: two voices per 808 quad colour, matching the grid.
+   Colour rises from the top; the bottom stays dark so the label reads, and
+   the 3px bottom lip carries the vivid LED colour. */
+.pad[data-bank="0"] { background: linear-gradient(180deg, #6e2b24 0%, #241412 100%); border-color: #3a1f1c; border-bottom-color: var(--red); }
+.pad[data-bank="1"] { background: linear-gradient(180deg, #6e481c 0%, #241a0f 100%); border-color: #3a2a17; border-bottom-color: var(--orange); }
+.pad[data-bank="2"] { background: linear-gradient(180deg, #63591f 0%, #24210f 100%); border-color: #38331a; border-bottom-color: var(--yellow); }
+.pad[data-bank="3"] { background: linear-gradient(180deg, #4f4b45 0%, #201e1b 100%); border-color: #35322d; border-bottom-color: var(--cream); }
+
+/* Pressed glow matches each pad's own colour. */
+.pad[data-bank="0"].is-pressed { border-color: var(--red);    box-shadow: 0 0 14px rgba(224, 69, 58, 0.45), inset 0 0 12px rgba(224, 69, 58, 0.22); }
+.pad[data-bank="1"].is-pressed { border-color: var(--orange); box-shadow: 0 0 14px rgba(240, 138, 36, 0.45), inset 0 0 12px rgba(240, 138, 36, 0.22); }
+.pad[data-bank="2"].is-pressed { border-color: var(--yellow); box-shadow: 0 0 14px rgba(242, 201, 76, 0.45), inset 0 0 12px rgba(242, 201, 76, 0.22); }
+.pad[data-bank="3"].is-pressed { border-color: var(--cream);  box-shadow: 0 0 14px rgba(245, 240, 230, 0.40), inset 0 0 12px rgba(245, 240, 230, 0.20); }
+
 /* ── Mixer ───────────────────────────────────────────────────────────── */
 .mix-row { display: grid; grid-template-columns: 32px 1fr 34px; gap: 8px; align-items: center; }
 .mix-label { font-size: 10px; color: var(--dim); letter-spacing: 0.06em; }
