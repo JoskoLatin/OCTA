@@ -24,6 +24,7 @@ const el = {
   mixer:       document.getElementById('mixer'),
   mixerRows:   document.getElementById('mixerRows'),
   btnPlay:     document.getElementById('btnPlay'),
+  btnRec:      document.getElementById('btnRec'),
   btnClear:    document.getElementById('btnClear'),
   btnMix:      document.getElementById('btnMix'),
   btnTap:      document.getElementById('btnTap'),
@@ -43,6 +44,8 @@ const rowEls = [];    // one .grid-row per voice
 const muteBtns = [];  // the left mute button per voice
 let ledNodes = [];
 let lastDrawnStep = -1;
+let lastDrawnStepTime = 0;   // audio-clock time the current playhead step began
+let recording = false;       // REC armed: pads write into the pattern while playing
 
 /* ── persistence ────────────────────────────────────────────────────── */
 
@@ -244,6 +247,7 @@ function buildPads() {
       e.preventDefault();
       audition(voice.id);
       flash(pad);
+      recordHit(voice.id);
     });
     el.pads.appendChild(pad);
   }
@@ -296,6 +300,23 @@ function buildMixer() {
 function audition(id) {
   engine.unlock();
   engine.trigger(id);
+}
+
+/**
+ * Live step-record: when REC is armed and the sequencer is running, a pad hit
+ * is quantised to the nearest 16th and written into the pattern. We measure the
+ * tap against lastDrawnStepTime (when the audible step began): a tap in the
+ * first half of a step lands on that step, in the second half on the next one.
+ */
+function recordHit(voiceId) {
+  if (!recording || !seq.isPlaying || lastDrawnStep < 0) return;
+  const frac = (engine.now - lastDrawnStepTime) / seq.sixteenth;
+  const step = ((lastDrawnStep + (frac >= 0.5 ? 1 : 0)) % STEPS + STEPS) % STEPS;
+  const row = VOICES.findIndex(v => v.id === voiceId);
+  if (row < 0) return;
+  seq.setStep(row, step, 1);
+  cells[row][step].classList.add('is-on');
+  save();
 }
 
 /** Press animation without needing :active (which is unreliable on touch). */
@@ -430,7 +451,9 @@ function drawLoop() {
   let step = lastDrawnStep;
 
   while (seq.drawQueue.length && seq.drawQueue[0].time <= now) {
-    step = seq.drawQueue.shift().step;
+    const ev = seq.drawQueue.shift();
+    step = ev.step;
+    lastDrawnStepTime = ev.time; // anchor for quantising live-recorded hits
   }
 
   if (step !== lastDrawnStep && step >= 0) {
@@ -450,6 +473,13 @@ function drawLoop() {
 
 function bindControls() {
   bindButton(el.btnPlay, togglePlay);
+
+  bindButton(el.btnRec, () => {
+    recording = !recording;
+    el.btnRec.classList.toggle('is-on', recording);
+    el.btnRec.setAttribute('aria-pressed', String(recording));
+    el.body.classList.toggle('is-recording', recording);
+  });
 
   bindButton(el.btnClear, () => {
     seq.clear();

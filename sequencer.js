@@ -134,6 +134,11 @@ class Sequencer {
     return p[row][step];
   }
 
+  /** Force a step on/off (used by live recording, which only ever adds hits). */
+  setStep(row, step, on) {
+    this.pattern[row][step] = on ? 1 : 0;
+  }
+
   /**
    * Fill toggle for one voice: if the row is already full, clear it;
    * otherwise switch every step on. Returns the new filled state.

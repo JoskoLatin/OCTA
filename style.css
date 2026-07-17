@@ -159,6 +159,20 @@ body.is-playing .mark-led {
   color: #6fcf6a;
   text-shadow: 0 0 6px rgba(111, 207, 106, 0.5);
 }
+/* REC armed — red, and blinks while it's actually laying down hits. */
+.btn-rec.is-on {
+  background: #3a2422;
+  border-color: var(--red);
+  color: var(--red);
+  text-shadow: 0 0 6px rgba(224, 69, 58, 0.55);
+}
+body.is-playing .btn-rec.is-on {
+  animation: recBlink 0.5s steps(1, end) infinite;
+}
+@keyframes recBlink {
+  0%, 50%   { box-shadow: 0 0 9px rgba(224, 69, 58, 0.6); }
+  51%, 100% { box-shadow: none; }
+}
 .pattern-row { gap: 10px; }
 .pattern-btns { display: flex; gap: 6px; flex: 1; }
 .btn-pat { min-height: 34px; font-size: 12px; letter-spacing: 0.08em; }
