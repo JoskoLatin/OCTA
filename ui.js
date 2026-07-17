@@ -28,6 +28,7 @@ const el = {
   btnClear:    document.getElementById('btnClear'),
   btnMix:      document.getElementById('btnMix'),
   btnTap:      document.getElementById('btnTap'),
+  btnChain:    document.getElementById('btnChain'),
   btnExport:   document.getElementById('btnExport'),
   btnImport:   document.getElementById('btnImport'),
   fileInput:   document.getElementById('fileInput'),
@@ -392,10 +393,17 @@ function syncTempo() {
 }
 
 function syncPatternButtons() {
+  el.patternBtns.classList.toggle('is-chaining', seq.chain);
+  // What's queued to play next: an explicit tap wins, else the chain's next slot.
+  const nextChain = (seq.chain && seq.isPlaying) ? seq.nextChainPattern() : null;
+  const pending = seq.pendingPattern !== null ? seq.pendingPattern : nextChain;
   for (const btn of el.patternBtns.children) {
-    btn.classList.toggle('is-on', Number(btn.dataset.pattern) === seq.current);
-    // A queued switch shows as pending until the bar turns over.
-    btn.classList.toggle('is-pending', Number(btn.dataset.pattern) === seq.pendingPattern);
+    const idx = Number(btn.dataset.pattern);
+    btn.classList.toggle('is-on', idx === seq.current);
+    // A queued switch (or the upcoming chain slot) blinks until the bar turns over.
+    btn.classList.toggle('is-pending', idx === pending && idx !== seq.current);
+    // Dot on each letter shows whether it's part of the chain (chain mode only).
+    btn.classList.toggle('in-chain', seq.chainMask[idx]);
   }
 }
 
@@ -404,6 +412,8 @@ function syncControls() {
   syncTempo();
   el.swingSlider.value = String(seq.swing);
   el.swingReadout.textContent = seq.swing + '%';
+  el.btnChain.classList.toggle('is-on', seq.chain);
+  el.btnChain.setAttribute('aria-pressed', String(seq.chain));
   syncPatternButtons();
   for (const voice of VOICES) {
     if (voice._mixSlider) {
@@ -501,6 +511,14 @@ function bindControls() {
     tapTempo();
   });
 
+  bindButton(el.btnChain, () => {
+    const on = seq.toggleChain();
+    el.btnChain.classList.toggle('is-on', on);
+    el.btnChain.setAttribute('aria-pressed', String(on));
+    syncPatternButtons();
+    save();
+  });
+
   bindButton(el.btnExport, exportState);
   bindButton(el.btnImport, () => el.fileInput.click());
   el.fileInput.addEventListener('change', () => {
@@ -508,18 +526,39 @@ function bindControls() {
     el.fileInput.value = ''; // let the same file be picked twice
   });
 
-  // Pattern slots — switching while playing lands at the next bar.
+  // Pattern slots: a tap selects (lands at the next bar); a long-press toggles
+  // whether that slot is part of the chain. We decide on release, so a held
+  // press can fire the long-press action first and suppress the tap-select.
+  let lpBtn = null, lpFired = false, lpTimer = null;
+  const cancelLongPress = () => { clearTimeout(lpTimer); lpTimer = null; lpBtn = null; };
   el.patternBtns.addEventListener('pointerdown', e => {
     const btn = e.target.closest('.btn-pat');
     if (!btn) return;
     e.preventDefault();
     engine.unlock();
+    lpBtn = btn;
+    lpFired = false;
+    lpTimer = setTimeout(() => {
+      lpFired = true;
+      seq.toggleChainSlot(Number(btn.dataset.pattern));
+      flash(btn);
+      syncPatternButtons();
+      save();
+    }, 500);
+  });
+  document.addEventListener('pointerup', () => {
+    if (!lpBtn) return;
+    const btn = lpBtn;
+    const fired = lpFired;
+    cancelLongPress();
+    if (fired) return; // the long-press already handled this press
     flash(btn);
     seq.selectPattern(Number(btn.dataset.pattern));
     syncPatternButtons();
     if (!seq.isPlaying) paintGrid();
     save();
   });
+  el.patternBtns.addEventListener('pointercancel', cancelLongPress);
 
   // Repaint the grid when a queued switch actually lands mid-playback.
   seq.onPatternChange = () => {

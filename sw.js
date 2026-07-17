@@ -8,7 +8,7 @@
    phones will keep serving the old copy from cache.
    ═══════════════════════════════════════════════════════════════════════ */
 
-const CACHE_VERSION = 'octa-v5';
+const CACHE_VERSION = 'octa-v6';
 
 const PRECACHE = [
   './',

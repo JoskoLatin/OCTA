@@ -63,6 +63,11 @@ class Sequencer {
     this.pendingPattern = null;     // switch requested; applied at the next bar
     this.muted = VOICES.map(() => false); // per-voice mute (shared across patterns)
 
+    // Chain mode: when on, playback auto-advances to the next enabled slot at
+    // every bar and loops. chainMask marks which slots take part (all by default).
+    this.chain = false;
+    this.chainMask = [true, true, true, true];
+
     this.current16th = 0;
     this.nextNoteTime = 0;
     this.timerId = null;
@@ -115,6 +120,30 @@ class Sequencer {
 
   setSwing(pct) { this.swing = Math.min(60, Math.max(0, pct)); }
 
+  /* ── chain mode ───────────────────────────────────────────────────── */
+
+  toggleChain() { this.chain = !this.chain; return this.chain; }
+
+  /** Include/exclude a slot from the chain; returns its new membership. */
+  toggleChainSlot(index) {
+    this.chainMask[index] = !this.chainMask[index];
+    return this.chainMask[index];
+  }
+
+  /** Next enabled slot after `from`, cycling; returns `from` if it's the only one. */
+  _nextInChain(from) {
+    for (let i = 1; i <= PATTERN_COUNT; i++) {
+      const idx = (from + i) % PATTERN_COUNT;
+      if (this.chainMask[idx]) return idx;
+    }
+    return from;
+  }
+
+  /** The slot the chain will advance to next (for UI preview), or null. */
+  nextChainPattern() {
+    return this.chain ? this._nextInChain(this.current) : null;
+  }
+
   /** Queue a pattern switch; it lands at the top of the next bar. */
   selectPattern(index) {
     if (index === this.current) { this.pendingPattern = null; return; }
@@ -165,11 +194,20 @@ class Sequencer {
   _advance() {
     this.nextNoteTime += this.sixteenth;
     this.current16th = (this.current16th + 1) % STEPS;
-    // A queued pattern switch takes effect at the start of the next bar.
-    if (this.current16th === 0 && this.pendingPattern !== null) {
-      this.current = this.pendingPattern;
-      this.pendingPattern = null;
-      if (this.onPatternChange) this.onPatternChange(this.current);
+    // At the start of each bar: a user-queued switch wins; otherwise, if the
+    // chain is on, advance to the next enabled slot.
+    if (this.current16th === 0) {
+      let next = null;
+      if (this.pendingPattern !== null) {
+        next = this.pendingPattern;
+        this.pendingPattern = null;
+      } else if (this.chain) {
+        next = this._nextInChain(this.current);
+      }
+      if (next !== null && next !== this.current) {
+        this.current = next;
+        if (this.onPatternChange) this.onPatternChange(this.current);
+      }
     }
   }
 
@@ -210,6 +248,8 @@ class Sequencer {
       swing: this.swing,
       current: this.current,
       muted: this.muted,
+      chain: this.chain,
+      chainMask: this.chainMask,
       patterns: this.patterns
     };
   }
@@ -242,6 +282,11 @@ class Sequencer {
     }
     if (Array.isArray(data.muted)) {
       this.muted = VOICES.map((_, i) => !!data.muted[i]);
+    }
+    if (typeof data.chain === 'boolean') this.chain = data.chain;
+    if (Array.isArray(data.chainMask)) {
+      this.chainMask = [0, 1, 2, 3].map(i =>
+        data.chainMask[i] === undefined ? true : !!data.chainMask[i]);
     }
     return true;
   }

@@ -177,7 +177,27 @@ body.is-playing .btn-rec.is-on {
 }
 .pattern-row { gap: 10px; }
 .pattern-btns { display: flex; gap: 6px; flex: 1; }
-.btn-pat { min-height: 34px; font-size: 12px; letter-spacing: 0.08em; }
+.btn-pat { position: relative; min-height: 34px; font-size: 12px; letter-spacing: 0.08em; }
+.btn-chain { flex: none; min-width: 68px; }
+
+/* Chain membership dot — only shown in chain mode. Filled = in the chain,
+   hollow = skipped. Long-pressing a letter toggles it. */
+.pattern-btns.is-chaining .btn-pat::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--dim);
+}
+.pattern-btns.is-chaining .btn-pat.in-chain::after {
+  background: var(--amber);
+  border-color: var(--amber);
+  box-shadow: 0 0 5px rgba(255, 184, 77, 0.7);
+}
 /* Switch requested while playing — blinks until the next bar picks it up. */
 .btn-pat.is-pending {
   border-color: var(--amber);
