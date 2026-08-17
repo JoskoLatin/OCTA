@@ -30,7 +30,7 @@ PC must be on the **same Wi-Fi network**.
 ### 1. Start a server from the project folder
 
 ```powershell
-cd C:\Users\kaficSkladiste\Documents\projekti\octa
+cd path\to\octa
 
 # Option A — Node (downloads 'serve' on first use):
 npx serve -l 8080
