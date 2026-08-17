@@ -18,6 +18,10 @@ android/app/src/main/assets/capacitor.config.json
 android/app/src/main/assets/capacitor.plugins.json
 .gradle/
 
+# Scratch dirs the store-asset renderers create (headless Chrome profiles)
+store-assets/.chrome-profile*
+store-assets/.feature-graphic.html
+
 # OS / editor
 .DS_Store
 Thumbs.db

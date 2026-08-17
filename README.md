@@ -8,6 +8,11 @@ eight voices are synthesised live with the Web Audio API.
   <img src="icon-512.png" width="140" alt="OCTA logo — an octagon drum pad">
 </p>
 
+<p align="center">
+  <img src="store-assets/screenshot-2-playing.png" width="300"
+       alt="OCTA playing a pattern with CHAIN mode armed">
+</p>
+
 ## Features
 
 - **8 synth voices** — BD kick, SD snare, CH/OH hats, CP clap, TM tom, RS
@@ -17,10 +22,20 @@ eight voices are synthesised live with the Web Audio API.
 - **BPM 60–200** and **swing 0–60%**, both changeable while playing.
 - **4 pattern slots (A/B/C/D)** — switching mid-play takes effect at the
   next bar.
+- **CHAIN mode** — auto-advance A→B→C→D and back, turning a loop into an
+  arrangement. Long-press a letter to drop it from the chain.
+- **Live step recording** — arm `REC` and play the pads while the sequencer
+  runs; hits are written in, quantised to the nearest 16th.
 - **Finger-drumming pads** that trigger on `pointerdown` for low latency.
 - **Per-voice mixer**, tap tempo, autosave to `localStorage`, and JSON
   export/import.
-- Installable **PWA** with offline support.
+- **Portrait and landscape layouts** — held sideways, the grid and pads move
+  into their own full-height column.
+- Installable **PWA** with offline support, and an **Android build** via
+  Capacitor.
+
+Two demo songs are included: `octa-song.json` (house) and
+`octa-song-techno.json`. Load either with `IMPORT`.
 
 ## Run it on your phone (Windows 11 / PowerShell)
 
@@ -84,13 +99,43 @@ New-NetFirewallRule -DisplayName "OCTA dev server" -Direction Inbound `
 | File | Purpose |
 |------|---------|
 | `index.html` | Markup + service-worker registration |
-| `style.css` | Dark hardware theme, portrait layout |
+| `style.css` | Dark hardware theme, portrait + landscape layouts |
 | `audio.js` | Web Audio synthesis engine (`AudioEngine`) |
 | `sequencer.js` | Lookahead scheduler + patterns (`Sequencer`) |
 | `ui.js` | DOM wiring, draw loop, persistence |
 | `manifest.json`, `sw.js` | PWA manifest + offline service worker |
 | `icon.svg`, `favicon.svg`, `icon-192/512.png` | Branding / PWA icons |
+| `android/` | Capacitor Android project (wrapper — the web files are the source) |
 | `tools/render-icons.ps1` | Regenerates the PNG icons from the mark |
+| `tools/sync-www.mjs` | Mirrors the web files into `www/` for packaging |
+| `store-assets/` | Google Play listing copy, screenshots, feature graphic |
+
+## Android build
+
+The web files at the root are the single source of truth; `www/` is generated,
+not edited.
+
+```powershell
+npm install
+
+npm run apk      # debug APK  -> octa-debug.apk
+npm run release  # signed AAB -> android/app/build/outputs/bundle/release/
+```
+
+`npm run release` needs a signing keystore — see
+[android/keystore/README.md](android/keystore/README.md). The Play Store
+listing text and graphics live in
+[store-assets/](store-assets/), with the publishing steps in
+[store-assets/PLAY-CHECKLIST.md](store-assets/PLAY-CHECKLIST.md).
+
+Regenerate the store screenshots and feature graphic (needs a local server on
+port 8099 for the screenshots):
+
+```powershell
+npx serve -l 8099            # in one terminal
+node tools/capture-store-screenshots.mjs
+node tools/render-feature-graphic.mjs
+```
 
 ## Regenerating the icons
 
@@ -109,9 +154,8 @@ The code is commented with extension in mind:
 - **More sounds** — add an entry to `VOICES` in `audio.js` and a
   matching `_synth` method; the grid, pads, and mixer build themselves from
   that list.
-- **APK packaging** — wrap with [Capacitor](https://capacitorjs.com/)
-  (`npx cap init`, add the Android platform, copy these files into
-  `www/`). The PWA manifest and service worker are already in place.
+- **Song mode** — patterns chain A→B→C→D today; a per-slot repeat count would
+  turn the chain into a full arrangement.
 
 ## Notes on audio quality
 
@@ -120,3 +164,7 @@ The code is commented with extension in mind:
 - Note timing runs on the AudioContext hardware clock via a 25 ms
   lookahead scheduler (not `setInterval` note-by-note), so it stays locked
   even when the main thread is busy.
+
+## Licence
+
+[GPL-3.0](LICENSE) — OCTA is free software. Made in Vodice.

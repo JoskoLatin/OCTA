@@ -32,9 +32,12 @@ is a Progressive Web App and, after the first load, works fully
 offline via a service worker that caches its own static files.</p>
 
 <h2>Permissions</h2>
-<p>The Android app requests no runtime permissions (no microphone,
-storage, location, contacts, camera, network, etc.). All sound is
-synthesised on-device with the Web Audio API.</p>
+<p>The Android app requests no runtime permissions — no microphone,
+storage, location, contacts, or camera. All sound is synthesised
+on-device with the Web Audio API.</p>
+<p>The app declares the standard <code>INTERNET</code> permission,
+which the Android WebView runtime it is built on requires. OCTA itself
+makes no network requests and sends nothing anywhere.</p>
 
 <h2>Third parties</h2>
 <p>OCTA does not use any third-party SDKs, analytics, advertising
