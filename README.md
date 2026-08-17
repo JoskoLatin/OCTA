@@ -1,22 +1,27 @@
 # OCTA
 
-**8-voice groovebox** — a mobile-first, 808-inspired drum machine that runs
-entirely in the browser. No build step, no frameworks, no sample files: all
-eight voices are synthesised live with the Web Audio API.
+**8-voice drum machine** — mobile-first, running entirely in the browser. No
+build step, no frameworks, no sample files: all eight voices are synthesised
+live with the Web Audio API.
 
 <p align="center">
   <img src="icon-512.png" width="140" alt="OCTA logo — an octagon drum pad">
 </p>
 
 <p align="center">
-  <img src="store-assets/screenshot-2-playing.png" width="300"
-       alt="OCTA playing a pattern with CHAIN mode armed">
+  <img src="store-assets/screenshot-4-landscape.png" width="760"
+       alt="OCTA in landscape — transport and tempo on the left, step grid and pads on the right">
+</p>
+
+<p align="center">
+  <img src="store-assets/screenshot-2-playing.png" width="280"
+       alt="OCTA in portrait, playing a pattern with CHAIN mode armed">
 </p>
 
 ## Features
 
 - **8 synth voices** — BD kick, SD snare, CH/OH hats, CP clap, TM tom, RS
-  rimshot, CY crash. All 808-style, generated in real time.
+  rimshot, CY crash. All generated in real time.
 - **16-step sequencer** with a sample-accurate lookahead scheduler — no
   timing drift after minutes of playback.
 - **BPM 60–200** and **swing 0–60%**, both changeable while playing.

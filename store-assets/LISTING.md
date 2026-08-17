@@ -19,7 +19,7 @@ OCTA — 8-voice drum machine
 ## Short description (max 80 chars)
 
 ```
-An 808-style groovebox: 8 synth voices, 16 steps, swing. Fully offline.
+A drum machine with 8 synth voices, 16 steps and swing. Fully offline.
 ```
 
 (70 characters.)
@@ -29,14 +29,14 @@ An 808-style groovebox: 8 synth voices, 16 steps, swing. Fully offline.
 ## Full description (max 4000 chars)
 
 ```
-OCTA is an 808-inspired drum machine that fits in your pocket. Every sound is
-synthesised live — there are no samples, no downloads, and no account. Open it
-and it makes noise.
+OCTA is a drum machine that fits in your pocket. Every sound is synthesised
+live — there are no samples, no downloads, and no account. Open it and it
+makes noise.
 
 EIGHT VOICES
-Kick, snare, closed and open hats, clap, tom, rimshot and crash — all classic
-808-style voices generated in real time with pure synthesis. Each one has its
-own level in the mixer, so you can sit the hats back and let the kick lead.
+Kick, snare, closed and open hats, clap, tom, rimshot and crash — generated in
+real time with pure synthesis. Each one has its own level in the mixer, so you
+can sit the hats back and let the kick lead.
 
 A SEQUENCER THAT STAYS IN TIME
 The 16-step grid runs on a lookahead scheduler locked to the audio hardware
@@ -68,7 +68,7 @@ makes no network requests and works completely offline, on a plane or
 underground.
 
 OCTA is free and open source under the GPL-3.0 licence.
-Source: https://github.com/JoskoLatin/octa
+Source: https://github.com/JoskoLatin/OCTA
 ```
 
 ---
@@ -90,9 +90,9 @@ Play needs at least 2 phone screenshots; 3 are provided.
 
 ## Other listing fields
 
-- **Privacy policy URL:** `https://joskolatin.github.io/octa/privacy.html`
+- **Privacy policy URL:** `https://joskolatin.github.io/OCTA/privacy.html`
 - **Contact email:** `joskolatin@gmail.com`
-- **Website (optional):** `https://github.com/JoskoLatin/octa`
+- **Website (optional):** `https://github.com/JoskoLatin/OCTA`
 - **Category:** Music & Audio
 - **Tags:** drum machine, sequencer, music creation
 - **Ads:** No

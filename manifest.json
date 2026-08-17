@@ -1,7 +1,7 @@
 {
   "name": "OCTA",
   "short_name": "OCTA",
-  "description": "8-voice groovebox",
+  "description": "8-voice drum machine",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",

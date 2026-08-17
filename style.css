@@ -3,7 +3,7 @@
      bg        #16181c   surfaces  #22252b / #2b2f36
      borders   #3a3f47   text      #d9d6cd   dim text  #8b8880
      amber LED #ffb84d
-   808 quad-colour step banks:
+   Quad-colour step banks:
      1-4 red #e0453a · 5-8 orange #f08a24 · 9-12 yellow #f2c94c · 13-16 cream #f5f0e6
    ---------------------------------------------------------------------- */
 
@@ -366,7 +366,7 @@ body.is-playing .btn-rec.is-on {
   cursor: pointer;
   transition: background 70ms ease, box-shadow 70ms ease;
 }
-/* 808 quad-colour banks — set per-cell by JS via data-bank. */
+/* Quad-colour banks — set per-cell by JS via data-bank. */
 .cell[data-bank="0"].is-on { background: var(--red);    border-color: var(--red);    box-shadow: 0 0 7px rgba(224, 69, 58, 0.5); }
 .cell[data-bank="1"].is-on { background: var(--orange); border-color: var(--orange); box-shadow: 0 0 7px rgba(240, 138, 36, 0.5); }
 .cell[data-bank="2"].is-on { background: var(--yellow); border-color: var(--yellow); box-shadow: 0 0 7px rgba(242, 201, 76, 0.5); }
@@ -406,7 +406,7 @@ body.is-playing .btn-rec.is-on {
   box-shadow: 0 0 14px rgba(255, 184, 77, 0.35), inset 0 0 12px rgba(255, 184, 77, 0.18);
 }
 
-/* Voice-tinted pads: two voices per 808 quad colour, matching the grid.
+/* Voice-tinted pads: two voices per quad colour, matching the grid.
    Colour rises from the top; the bottom stays dark so the label reads, and
    the 3px bottom lip carries the vivid LED colour. */
 .pad[data-bank="0"] { background: linear-gradient(180deg, #6e2b24 0%, #241412 100%); border-color: #3a1f1c; border-bottom-color: var(--red); }

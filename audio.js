@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════════
    OCTA — audio engine
-   808-inspired, fully synthesised. No sample files.
+   Fully synthesised. No sample files.
 
    Signal flow:
      voice synth nodes → per-voice GainNode (mixer) → master GainNode → out
@@ -28,7 +28,7 @@ const VOICES = [
 /** Smallest gain we ramp to. exponentialRamp can't touch zero. */
 const EPS = 0.0005;
 
-/** Inharmonic ratios for the 808 metallic stack (hats + crash). */
+/** Inharmonic ratios for the metallic stack (hats + crash). */
 const METAL_RATIOS = [2, 3, 4.16, 5.43, 6.79, 8.21];
 const METAL_BASE_HZ = 120;
 

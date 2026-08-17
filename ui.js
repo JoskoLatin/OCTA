@@ -176,7 +176,7 @@ function buildGrid() {
     for (let s = 0; s < STEPS; s++) {
       const cell = document.createElement('div');
       cell.className = 'cell';
-      // Bank 0-3 drives the 808 quad colour: red / orange / yellow / cream.
+      // Bank 0-3 drives the quad colour: red / orange / yellow / cream.
       cell.dataset.bank = String(Math.floor(s / 4));
       cell.addEventListener('pointerdown', e => {
         e.preventDefault();
@@ -242,7 +242,7 @@ function buildPads() {
   VOICES.forEach((voice, i) => {
     const pad = document.createElement('button');
     pad.className = 'pad';
-    // Two voices per 808 colour bank (red / orange / yellow / cream), so the
+    // Two voices per colour bank (red / orange / yellow / cream), so the
     // pads read in the same quad palette as the step grid.
     pad.dataset.bank = String(Math.floor(i / 2));
     pad.innerHTML = `<span>${voice.id}</span><span class="pad-sub">${voice.name}</span>`;

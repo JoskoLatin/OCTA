@@ -1,7 +1,7 @@
 {
   "name": "octa",
   "version": "1.0.0",
-  "description": "OCTA — 8-voice groovebox",
+  "description": "OCTA — 8-voice drum machine",
   "private": true,
   "scripts": {
     "serve": "serve -l 8080",
