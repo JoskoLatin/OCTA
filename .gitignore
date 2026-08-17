@@ -6,6 +6,7 @@ www/
 
 # Build artifacts
 *.apk
+*.aab
 
 # Android / Gradle build outputs
 android/build/

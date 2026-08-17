@@ -6,7 +6,7 @@
 import { spawnSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { existsSync } from 'node:fs';
+import { existsSync, copyFileSync } from 'node:fs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const androidDir = join(root, 'android');
@@ -28,8 +28,13 @@ const args = isWin
 
 const res = spawnSync(cmd, args, { cwd: androidDir, stdio: 'inherit' });
 if (res.status === 0) {
-  console.log(
-    '\nRelease bundle: android/app/build/outputs/bundle/release/app-release.aab'
+  // Copy to the project root so the file to upload to Play is easy to find
+  // (mirrors how the debug APK lands at the root as octa-debug.apk).
+  const built = join(
+    androidDir, 'app', 'build', 'outputs', 'bundle', 'release', 'app-release.aab'
   );
+  const dest = join(root, 'octa-release.aab');
+  copyFileSync(built, dest);
+  console.log(`\nRelease bundle: octa-release.aab  (upload this to Play)`);
 }
 process.exit(res.status ?? 1);
