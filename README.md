@@ -9,6 +9,13 @@ live with the Web Audio API.
 </p>
 
 <p align="center">
+  <a href="https://github.com/JoskoLatin/OCTA/releases/latest">
+    <img src="https://img.shields.io/github/v/release/JoskoLatin/OCTA?label=download%20APK&style=for-the-badge"
+         alt="Download the latest APK">
+  </a>
+</p>
+
+<p align="center">
   <img src="store-assets/screenshot-4-landscape.png" width="760"
        alt="OCTA in landscape — transport and tempo on the left, step grid and pads on the right">
 </p>
@@ -41,6 +48,15 @@ live with the Web Audio API.
 
 Two demo songs are included: `octa-song.json` (house) and
 `octa-song-techno.json`. Load either with `IMPORT`.
+
+## Install on Android
+
+Grab `octa-release.apk` from the
+[latest release](https://github.com/JoskoLatin/OCTA/releases/latest) and open
+it on the phone. Android will ask you to allow installs from that source —
+expected for anything not coming from the Play Store. Needs Android 7.0+.
+
+The sections below are for running the web version from your PC instead.
 
 ## Run it on your phone (Windows 11 / PowerShell)
 
@@ -113,6 +129,7 @@ New-NetFirewallRule -DisplayName "OCTA dev server" -Direction Inbound `
 | `android/` | Capacitor Android project (wrapper — the web files are the source) |
 | `tools/render-icons.ps1` | Regenerates the PNG icons from the mark |
 | `tools/sync-www.mjs` | Mirrors the web files into `www/` for packaging |
+| `tools/build-release-*.mjs` | Signed AAB (for Play) and signed APK (for releases) |
 | `store-assets/` | Google Play listing copy, screenshots, feature graphic |
 
 ## Android build
@@ -123,8 +140,9 @@ not edited.
 ```powershell
 npm install
 
-npm run apk      # debug APK  -> octa-debug.apk
-npm run release  # signed AAB -> android/app/build/outputs/bundle/release/
+npm run apk          # debug APK   -> octa-debug.apk
+npm run release      # signed AAB  -> octa-release.aab  (upload to Play)
+npm run release-apk  # signed APK  -> octa-release.apk  (attach to a release)
 ```
 
 `npm run release` needs a signing keystore — see
