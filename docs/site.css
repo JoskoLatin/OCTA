@@ -1,0 +1,153 @@
+/* ── OCTA site — same dark hardware palette as the app ──────────────── */
+:root {
+  --bg:        #16181c;
+  --surface:   #22252b;
+  --surface-2: #2b2f36;
+  --border:    #3a3f47;
+  --text:      #d9d6cd;
+  --dim:       #8b8880;
+  --amber:     #ffb84d;
+  --cream:     #f5f0e6;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "SF Mono", "Roboto Mono", ui-monospace, Menlo, Consolas, monospace;
+  line-height: 1.7;
+  -webkit-text-size-adjust: 100%;
+}
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 40px 20px 64px;
+}
+
+/* ── Header lockup ───────────────────────────────────────────────────── */
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+.site-header img { width: 72px; height: 72px; border-radius: 14px; flex: none; }
+.wordmark {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--cream);
+  line-height: 1;
+  margin: 0 0 6px;
+}
+.tagline {
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin: 0;
+}
+
+h2 {
+  font-size: 15px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin: 44px 0 14px;
+}
+h3 {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin: 26px 0 8px;
+}
+p { margin: 0 0 14px; }
+a { color: var(--amber); }
+a:hover { color: var(--cream); }
+
+.lead { font-size: 17px; margin-top: 26px; }
+
+ul { padding-left: 20px; margin: 0 0 14px; }
+li { margin-bottom: 7px; }
+
+/* ── Download button ─────────────────────────────────────────────────── */
+.download {
+  display: inline-block;
+  margin: 8px 0 6px;
+  padding: 15px 30px;
+  background: var(--surface-2);
+  border: 1px solid var(--amber);
+  border-bottom-width: 3px;
+  border-radius: 9px;
+  color: var(--amber);
+  text-decoration: none;
+  font-size: 15px;
+  letter-spacing: 0.16em;
+}
+.download:hover { background: #3a3222; color: var(--amber); }
+.note { font-size: 13px; color: var(--dim); }
+
+/* ── Screenshots ─────────────────────────────────────────────────────── */
+.shots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+  margin: 18px 0 8px;
+}
+.shots img {
+  max-width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: block;
+}
+.shots .portrait  { width: 220px; }
+.shots .landscape { width: 460px; }
+
+/* ── Privacy callout ─────────────────────────────────────────────────── */
+.callout {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 0 0 18px;
+}
+.callout p:last-child { margin-bottom: 0; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 18px;
+  font-size: 14px;
+}
+th, td {
+  text-align: left;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+}
+th { background: var(--surface); color: var(--cream); font-weight: 700; }
+
+.site-footer {
+  margin-top: 48px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--dim);
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .wrap { padding: 28px 16px 48px; }
+  .site-header { gap: 14px; }
+  .site-header img { width: 56px; height: 56px; }
+  .wordmark { font-size: 26px; }
+  .shots .landscape { width: 100%; }
+}

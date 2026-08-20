@@ -90,9 +90,9 @@ Play needs at least 2 phone screenshots; 3 are provided.
 
 ## Other listing fields
 
-- **Privacy policy URL:** `https://joskolatin.github.io/OCTA/privacy.html`
+- **Privacy policy URL:** `https://joskolatin.github.io/OCTA/#privacy`
 - **Contact email:** `joskolatin@gmail.com`
-- **Website (optional):** `https://github.com/JoskoLatin/OCTA`
+- **Website (optional):** `https://joskolatin.github.io/OCTA/`
 - **Category:** Music & Audio
 - **Tags:** drum machine, sequencer, music creation
 - **Ads:** No

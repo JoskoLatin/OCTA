@@ -31,7 +31,7 @@ Verified for this release:
 
 3. **Store settings** — category **Music & Audio**, contact email
    `joskolatin@gmail.com`, and the privacy policy URL:
-   `https://joskolatin.github.io/OCTA/privacy.html`
+   `https://joskolatin.github.io/OCTA/#privacy`
 
 4. **App content** (Policy → App content) — work through each card:
    - Privacy policy → the URL above

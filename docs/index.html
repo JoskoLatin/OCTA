@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OCTA — 8-voice drum machine</title>
+<meta name="description" content="OCTA is an 8-voice drum machine for Android and the browser. Every sound is synthesised live — no samples, no accounts, no tracking.">
+<meta name="theme-color" content="#16181c">
+<link rel="icon" href="icon-512.png">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site-header">
+    <img src="icon-512.png" alt="OCTA logo — an octagon drum pad">
+    <div>
+      <h1 class="wordmark">OCTA</h1>
+      <p class="tagline">drum machine</p>
+    </div>
+  </header>
+
+  <p class="lead">
+    An 8-voice drum machine that runs entirely on your device. Every sound is
+    synthesised live with the Web Audio API — there are no sample files, no
+    account, and nothing to sign up for.
+  </p>
+
+  <h2>Download</h2>
+
+  <p>
+    <a class="download" href="https://github.com/JoskoLatin/OCTA/releases/latest/download/octa-release.apk">
+      Download for Android
+    </a>
+  </p>
+  <p class="note">
+    Android 7.0 or newer. Your phone will ask you to allow installing from this
+    source — that prompt is normal for apps installed outside the Play Store.
+    You can also
+    <a href="https://github.com/JoskoLatin/OCTA">read the source on GitHub</a>.
+  </p>
+
+  <h2>What it does</h2>
+
+  <ul>
+    <li><strong>8 synth voices</strong> — kick, snare, closed and open hats, clap, tom, rimshot, crash</li>
+    <li><strong>16-step sequencer</strong> on a lookahead scheduler, so it never drifts out of time</li>
+    <li><strong>60–200 BPM</strong> and <strong>0–60% swing</strong>, both adjustable while playing</li>
+    <li><strong>4 pattern slots</strong> with CHAIN mode to auto-advance A→B→C→D</li>
+    <li><strong>Live recording</strong> — arm REC and play the pads while the sequencer runs</li>
+    <li><strong>Per-voice mixer</strong>, tap tempo, and JSON export/import</li>
+    <li>Works <strong>completely offline</strong></li>
+  </ul>
+
+  <div class="shots">
+    <img class="portrait" src="screenshot-portrait.png"
+         alt="OCTA in portrait, playing a pattern with CHAIN mode armed">
+    <img class="landscape" src="screenshot-landscape.png"
+         alt="OCTA in landscape, with the step grid and pads in their own column">
+  </div>
+
+  <h2 id="privacy">Privacy policy</h2>
+
+  <p class="note">Last updated: 20 August 2026</p>
+
+  <div class="callout">
+    <p>
+      <strong>OCTA collects nothing.</strong> It has no servers, no accounts,
+      no ads, and no analytics. Nothing you do in the app is sent anywhere,
+      because the app never contacts the network at all.
+    </p>
+  </div>
+
+  <h3>What is stored, and where</h3>
+  <p>
+    Your patterns, tempo, swing and mixer settings are saved on your own
+    device — in browser <code>localStorage</code> on the web, and in the
+    equivalent on-device storage in the Android app. This data never leaves
+    your device, and neither the developer nor anyone else can read it. Removing
+    the app, or clearing its data, deletes it permanently.
+  </p>
+
+  <h3>Network access</h3>
+  <p>
+    OCTA makes no network requests in normal use. The web version is a
+    Progressive Web App: after the first load it runs fully offline from a
+    service worker that caches only its own files.
+  </p>
+
+  <h3>Permissions</h3>
+  <p>
+    The Android app asks for no runtime permissions — no microphone, storage,
+    location, contacts or camera. All sound is generated on the device itself.
+    The app declares the standard <code>INTERNET</code> permission because the
+    Android WebView runtime it is built on requires it, but OCTA never uses it.
+  </p>
+
+  <h3>Third parties</h3>
+  <p>
+    There are no third-party SDKs, advertising networks, analytics or crash
+    reporting services in OCTA of any kind.
+  </p>
+
+  <h3>Children's privacy</h3>
+  <p>
+    Because OCTA collects no data at all, it collects no data from anyone,
+    children included.
+  </p>
+
+  <h3>Changes to this policy</h3>
+  <p>
+    If this policy ever changes, the updated version will be posted on this
+    page with a new date above.
+  </p>
+
+  <h3>Contact</h3>
+  <p>
+    Questions about this policy:
+    <a href="mailto:joskolatin@gmail.com">joskolatin@gmail.com</a>
+  </p>
+
+  <footer class="site-footer">
+    OCTA · MADE IN VODICE · free software under the
+    <a href="https://github.com/JoskoLatin/OCTA/blob/master/LICENSE">GPL-3.0</a>
+  </footer>
+
+</div>
+</body>
+</html>
