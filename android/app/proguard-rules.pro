@@ -1,21 +1,25 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# ── OCTA — R8 rules ───────────────────────────────────────────────────────
+# Minification is on so the App Bundle carries a deobfuscation map (Play warns
+# when one is missing). Capacitor wires the web layer to Java by reflection,
+# so the pieces it looks up by name have to survive renaming.
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# The bridge itself, plus anything it exposes to JavaScript.
+-keep class com.getcapacitor.** { *; }
+-keep class org.apache.cordova.** { *; }
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Plugins are discovered from capacitor.plugins.json by class name, and their
+# methods are called from JS — neither may be renamed or stripped.
+-keep @com.getcapacitor.annotation.CapacitorPlugin public class * { *; }
+-keep public class * extends com.getcapacitor.Plugin { *; }
+-keepclassmembers class * {
+  @com.getcapacitor.PluginMethod public *;
+  @android.webkit.JavascriptInterface public *;
+}
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# The app's own activity is named in AndroidManifest.xml.
+-keep class com.vodice.octa.** { *; }
+
+# Keep line numbers so Play's crash reports stay readable, while still
+# hiding the original source file names.
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile

@@ -1,0 +1,9 @@
+First release of OCTA.
+
+An 8-voice drum machine that runs entirely on your device:
+- Kick, snare, closed/open hats, clap, tom, rimshot and crash
+- 16-step sequencer that stays locked in time
+- 60-200 BPM and 0-60% swing, adjustable while playing
+- 4 pattern slots with CHAIN mode
+- Live step recording and a per-voice mixer
+- Works fully offline. No ads, no accounts, no tracking.
